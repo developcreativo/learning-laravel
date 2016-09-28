@@ -28,6 +28,23 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         return $app;
     }
 
+    public function login(string $password='password123', User $user = null)
+    {
+        if(is_null($user)){
+            $user = factory(User::class)->create([
+                    'password' => bcrypt($password),
+                ]);
+        }
+
+        $data = [
+            'username'=> $user->username,
+            'password'=> $password,
+        ];
+
+        $this->post('auth/login', $data);
+    }
+
+
     public function getHeaders(string $password = 'password123', User $user = null)
     {
         if (is_null($user)) {

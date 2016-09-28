@@ -8,7 +8,6 @@ class ControllerTest extends \TestCase
 {
     public function testLogin()
     {
-        //Sets
         $data = [
             'username' => 'testUser',
             'password' => 'testPassword',
@@ -20,8 +19,6 @@ class ControllerTest extends \TestCase
         factory(User::class)->create($user);
 
         $this->post('auth/login', $data);
-
-        //Asserts
         $this->seeStatusCode(200);
         $this->seeJson([
             'username' => 'testUser',
