@@ -10,13 +10,13 @@ class ControllerTest extends \TestCase
     {
         //Sets
         $data = [
-            'username' => 'emtudo',
-            'password' => 'emtudo123',
+            'username' => 'testUser',
+            'password' => 'testPassword',
         ];
 
         $user             = $data;
         $user['password'] = bcrypt($user['password']);
-        $user['email']    = 'teste@teste.com';
+        $user['email']    = 'test@test.com';
         factory(User::class)->create($user);
 
         $this->post('auth/login', $data);
@@ -24,7 +24,7 @@ class ControllerTest extends \TestCase
         //Asserts
         $this->seeStatusCode(200);
         $this->seeJson([
-            'username' => 'emtudo',
+            'username' => 'testUser',
         ]);
     }
 
@@ -32,14 +32,14 @@ class ControllerTest extends \TestCase
     {
         //Sets
         $data = [
-            'username' => 'teste@teste.com',
-            'password' => 'emtudo123',
+            'username' => 'test@test.com',
+            'password' => 'testPassword',
         ];
 
         $user = [
-            'username' => 'emtudo',
+            'username' => 'testUser',
             'password' => bcrypt($data['password']),
-            'email'    => 'teste@teste.com',
+            'email'    => 'test@test.com',
         ];
 
         factory(User::class)->create($user);
@@ -49,7 +49,7 @@ class ControllerTest extends \TestCase
         //Asserts
         $this->seeStatusCode(200);
         $this->seeJson([
-            'username' => 'emtudo',
+            'username' => 'testUser',
         ]);
     }
 
@@ -57,7 +57,7 @@ class ControllerTest extends \TestCase
     {
         $data = [
             'username' => uniqid(),
-            'password' => 'teste',
+            'password' => 'testPassword',
         ];
         $this->post('auth/login', $data);
 

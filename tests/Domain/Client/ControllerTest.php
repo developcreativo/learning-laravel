@@ -6,9 +6,18 @@ class ControllerTest extends \TestCase
 {
     public function testCreate()
     {
+        $name = 'Victor Hugo';
         $data = [
-        'name'=> 'Victor Hugo', 
+        'name'=> $name, 
         ];
-        $this->post('v1/client', $data);
+
+        $this->post('client', $data);
+        $this->seeStatusCode(200);
+        $this->seeJson([
+            'name'=> $name,
+            ]);
+        $this->seeInDatabase('clients',[
+            'name'=> $name,
+            ]);
     }
 }
